@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+body{
+  background:black;
+  color:white;
+  font-family:sans-serif;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+*{
+  cursor: none;
+}
