@@ -1,8 +1,11 @@
 package com.example.portfolio.portfolio.controller;
 
 import com.example.portfolio.portfolio.entity.Project;
+
 import com.example.portfolio.portfolio.service.ProjectService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,25 +15,40 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class ProjectController {
-    private final ProjectService projectService;
 
-    @PostMapping
-    public Project addProject(@RequestBody Project project) {
-        return projectService.addProject(project);
-    }
+    private final ProjectService projectService;
 
     @GetMapping
     public List<Project> getProjects() {
+
         return projectService.getProjects();
     }
 
-    @GetMapping("/{id}")
-    public Project getProject(@PathVariable Long id) {
-        return projectService.getProject(id);
+    @PostMapping
+    public Project createProject(
+            @RequestBody Project project
+    ) {
+
+        return projectService.createProject(project);
+    }
+
+    @PutMapping("/{id}")
+    public Project updateProject(
+            @PathVariable Long id,
+            @RequestBody Project project
+    ) {
+
+        return projectService.updateProject(
+                id,
+                project
+        );
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProject(@PathVariable Long id) {
+    public String deleteProject(
+            @PathVariable Long id
+    ) {
+
         return projectService.deleteProject(id);
     }
 }

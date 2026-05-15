@@ -1,83 +1,62 @@
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-import API from "../services/api"
+import API from "../services/api";
 
-import ProjectModal from "../components/ProjectModal"
+import ProjectModal from "../components/ProjectModal";
 
 function Projects() {
+  const [projects, setProjects] = useState([]);
 
-    const [projects, setProjects] = useState([])
+  const [selectedProject, setSelectedProject] = useState(null);
 
-    const [selectedProject, setSelectedProject] = useState(null)
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
-    useEffect(() => {
+  const fetchProjects = async () => {
+    try {
+      const response = await API.get("/projects");
 
-        fetchProjects()
-
-    }, [])
-
-    const fetchProjects = async () => {
-
-        try {
-
-            const response = await API.get("/projects")
-
-            setProjects(response.data)
-
-        } catch (error) {
-
-            console.log(error)
-
-        }
+      setProjects(response.data);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    return (
+  return (
+    <section className="min-h-screen px-8 py-32" id="projects">
+      <div className="max-w-7xl mx-auto">
+        {/* Heading */}
 
-        <section
-            className="min-h-screen px-8 py-32"
-            id="projects"
+        <motion.h1
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="text-6xl font-bold text-center"
         >
+          Featured{" "}
+          <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+            Projects
+          </span>
+        </motion.h1>
 
-            <div className="max-w-7xl mx-auto">
+        {/* Grid */}
 
-                {/* Heading */}
-
-                <motion.h1
-                    initial={{ opacity: 0, y: 80 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1 }}
-                    viewport={{ once: true }}
-                    className="text-6xl font-bold text-center"
-                >
-
-                    Featured{" "}
-
-                    <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-
-                        Projects
-
-                    </span>
-
-                </motion.h1>
-
-                {/* Grid */}
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-24">
-
-                    {projects.map((project) => (
-
-                        <motion.div
-                            key={project.id}
-                            whileHover={{
-                                y: -10,
-                                scale: 1.02
-                            }}
-                            transition={{
-                                duration: 0.3
-                            }}
-                            onClick={() => setSelectedProject(project)}
-                            className="
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-24">
+          {projects.map((project) => (
+            <motion.div
+              key={project.id}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
+              }}
+              transition={{
+                duration: 0.3,
+              }}
+              onClick={() => setSelectedProject(project)}
+              className="
                             
                             flex
                             flex-col
@@ -102,16 +81,14 @@ function Projects() {
                             duration-300
                             
                             "
-                        >
+            >
+              {/* Image */}
 
-                            {/* Image */}
-
-                            <div className="overflow-hidden">
-
-                                <img
-                                    src={project.imageUrl}
-                                    alt={project.title}
-                                    className="
+              <div className="overflow-hidden">
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="
                                     
                                     w-full
                                     h-56
@@ -123,26 +100,20 @@ function Projects() {
                                     duration-700
                                     
                                     "
-                                />
+                />
+              </div>
 
-                            </div>
+              {/* Content */}
 
-                            {/* Content */}
+              <div className="p-8 flex flex-col flex-1">
+                {/* Title */}
 
-                            <div className="p-8 flex flex-col flex-1">
+                <h2 className="text-2xl font-bold">{project.title}</h2>
 
-                                {/* Title */}
+                {/* Description */}
 
-                                <h2 className="text-2xl font-bold">
-
-                                    {project.title}
-
-                                </h2>
-
-                                {/* Description */}
-
-                                <p
-                                    className="
+                <p
+                  className="
                                     
                                     text-gray-400
                                     mt-4
@@ -151,25 +122,20 @@ function Projects() {
                                     line-clamp-3
                                     
                                     "
-                                >
+                >
+                  {project.description}
+                </p>
 
-                                    {project.description}
+                {/* Tech Stack */}
 
-                                </p>
-
-                                {/* Tech Stack */}
-
-                                <div className="flex flex-wrap gap-3 mt-6">
-
-                                    {
-                                        project.techStack
-                                            ?.split(",")
-                                            .slice(0, 4)
-                                            .map((tech, index) => (
-
-                                                <span
-                                                    key={index}
-                                                    className="
+                <div className="flex flex-wrap gap-3 mt-6">
+                  {project.techStack
+                    ?.split(",")
+                    .slice(0, 4)
+                    .map((tech, index) => (
+                      <span
+                        key={index}
+                        className="
                                                     
                                                     px-4
                                                     py-2
@@ -184,22 +150,14 @@ function Projects() {
                                                     border-purple-500/20
                                                     
                                                     "
-                                                >
+                      >
+                        {tech.trim()}
+                      </span>
+                    ))}
 
-                                                    {tech.trim()}
-
-                                                </span>
-
-                                            ))
-                                    }
-
-                                    {
-                                        project.techStack
-                                            ?.split(",")
-                                            .length > 4 && (
-
-                                                <span
-                                                    className="
+                  {project.techStack?.split(",").length > 4 && (
+                    <span
+                      className="
                                                     
                                                     px-4
                                                     py-2
@@ -211,94 +169,107 @@ function Projects() {
                                                     bg-gray-800
                                                     
                                                     "
-                                                >
-
-                                                    +
-                                                    {
-                                                        project.techStack
-                                                            .split(",")
-                                                            .length - 4
-                                                    }
-
-                                                </span>
-
-                                            )
-                                    }
-
-                                </div>
-
-                                {/* Spacer */}
-
-                                <div className="flex-1"></div>
-
-                                {/* Buttons */}
-
-                                <div className="flex gap-4 mt-10">
-
-                                    <a
-                                        href={project.githubLink}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        onClick={(e) => e.stopPropagation()}
-                                        className="
-                                        
-                                        px-5
-                                        py-3
-                                        
-                                        rounded-full
-                                        
-                                        bg-purple-600
-                                        
-                                        hover:bg-purple-700
-                                        
-                                        transition
-                                        
-                                        "
-                                    >
-
-                                        GitHub
-
-                                    </a>
-
-                                    <a
-                                        href={project.liveLink}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        onClick={(e) => e.stopPropagation()}
-                                        className="
-                                        
-                                        px-5
-                                        py-3
-                                        
-                                        rounded-full
-                                        
-                                        border
-                                        border-gray-700
-                                        
-                                        hover:border-purple-500
-                                        
-                                        transition
-                                        
-                                        "
-                                    >
-
-                                        Live Demo
-
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                        </motion.div>
-
-                    ))}
-
+                    >
+                      +{project.techStack.split(",").length - 4}
+                    </span>
+                  )}
                 </div>
 
-                {/* Modal */}
+                {/* Spacer */}
 
-                {/* {
+                <div className="flex-1"></div>
+
+                {/* Buttons */}
+
+                <div
+    className="
+    
+    flex
+    flex-wrap
+    
+    gap-4
+    
+    mt-10
+    
+    "
+>
+
+    {/* GitHub Button */}
+
+    {
+        project.githubLink &&
+        project.githubLink.trim() !== "" && (
+
+            <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noreferrer"
+                className="
+                
+                px-6
+                py-3
+                
+                rounded-full
+                
+                bg-purple-600
+                
+                hover:bg-purple-700
+                
+                transition
+                
+                "
+            >
+
+                GitHub
+
+            </a>
+
+        )
+    }
+
+    {/* Live Demo Button */}
+
+    {
+        project.liveLink &&
+        project.liveLink.trim() !== "" && (
+
+            <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noreferrer"
+                className="
+                
+                px-6
+                py-3
+                
+                rounded-full
+                
+                border
+                border-gray-700
+                
+                hover:border-purple-500
+                
+                transition
+                
+                "
+            >
+
+                Live Demo
+
+            </a>
+
+        )
+    }
+
+</div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Modal */}
+
+        {
                     selectedProject && (
 
                         <ProjectModal
@@ -307,12 +278,10 @@ function Projects() {
                         />
 
                     )
-                } */}
-
-            </div>
-
-        </section>
-    )
+                }
+      </div>
+    </section>
+  );
 }
 
-export default Projects
+export default Projects;

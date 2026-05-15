@@ -24,4 +24,19 @@ public class SkillService {
         skillRepository.deleteById(id);
         return "Skill deleted successfully";
     }
+
+    public Skill updateSkill(Long id, Skill updatedSkill) {
+        Skill skill =
+                skillRepository.findById(id)
+                        .orElseThrow();
+
+        skill.setName(
+                updatedSkill.getName()
+        );
+
+        skill.setPercentage(
+                updatedSkill.getPercentage()
+        );
+        return skillRepository.save(skill);
+    }
 }

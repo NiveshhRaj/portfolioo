@@ -24,6 +24,12 @@ public class SkillController {
     public List<Skill> getSkills(){
         return skillService.getSkills();
     }
+
+    @PutMapping("/{id}")
+    public Skill updateSkill(@PathVariable Long id, @RequestBody Skill skill){
+        return skillService.updateSkill(id,skill);
+    }
+
     @DeleteMapping("/{id}")
     public String deleteSkill(@PathVariable Long id){
         return skillService.deleteSkill(id);

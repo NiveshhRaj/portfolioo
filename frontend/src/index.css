@@ -13,3 +13,11 @@ html{
 *{
   cursor: none;
 }
+
+@media(max-width:768px){
+
+  *{
+    cursor:auto;
+  }
+
+}
