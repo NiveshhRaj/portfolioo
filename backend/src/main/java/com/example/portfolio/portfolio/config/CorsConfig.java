@@ -28,7 +28,7 @@ public class CorsConfig {
 
                         "http://localhost:5173",
 
-                        "https://portfolio-backend-zv3z.onrender.com/"
+                        "https://portfolio-frontend-lovat-ten.vercel.app"
                 )
         );
 
