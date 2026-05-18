@@ -15,6 +15,7 @@ import ManageSkills from "./pages/ManageSkills";
 import Messages from "./pages/Messages";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CustomCursor from "./components/CustomCursor";
+import ManageResume from "./pages/ManageResume.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -61,6 +62,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
+
+            <Route
+                path="/resume"
+                element={<ManageResume />}
+            />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

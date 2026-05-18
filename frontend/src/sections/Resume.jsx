@@ -1,6 +1,19 @@
 import { motion } from "framer-motion"
+import API from "../services/api.js";
 
 function Resume() {
+
+    const downloadResume = async () => {
+
+        const response =
+            await API.get("/resume")
+
+        window.open(
+
+            `http://localhost:8081/uploads/resume/${response.data.fileName}`
+
+        )
+    }
 
     return (
 
@@ -39,15 +52,23 @@ function Resume() {
 
                 {/* Button */}
 
-                <a
-                    href="/resume.pdf"
-                    download
-                    className="inline-block mt-12 px-10 py-5 rounded-full bg-purple-600 hover:bg-purple-700 transition text-lg font-semibold"
+                {/*<a*/}
+                {/*    href="/resume.pdf"*/}
+                {/*    download*/}
+                {/*    className="inline-block mt-12 px-10 py-5 rounded-full bg-purple-600 hover:bg-purple-700 transition text-lg font-semibold"*/}
+                {/*>*/}
+
+                {/*    Download CV*/}
+
+                {/*</a>*/}
+
+                <button onClick={downloadResume}
+                        className="inline-block mt-12 px-10 py-5 rounded-full bg-purple-600 hover:bg-purple-700 transition text-lg font-semibold"
                 >
 
-                    Download CV
+                    Download Resume
 
-                </a>
+                </button>
 
             </motion.div>
 

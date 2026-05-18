@@ -68,11 +68,11 @@ function Skills() {
 
                                 </h2>
 
-                                <span className="text-purple-400">
+                                {/*<span className="text-purple-400">*/}
 
-                                    {skill.percentage}%
+                                {/*    {skill.percentage}%*/}
 
-                                </span>
+                                {/*</span>*/}
 
                             </div>
 
@@ -86,19 +86,19 @@ function Skills() {
 
                             {/* Progress Bar */}
 
-                            <div className="w-full h-3 bg-gray-800 rounded-full mt-6 overflow-hidden">
+                            {/*<div className="w-full h-3 bg-gray-800 rounded-full mt-6 overflow-hidden">*/}
 
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    whileInView={{
-                                        width: `${skill.percentage}%`
-                                    }}
-                                    transition={{ duration: 1.5 }}
-                                    viewport={{ once: true }}
-                                    className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
-                                />
+                            {/*    <motion.div*/}
+                            {/*        initial={{ width: 0 }}*/}
+                            {/*        whileInView={{*/}
+                            {/*            width: `${skill.percentage}%`*/}
+                            {/*        }}*/}
+                            {/*        transition={{ duration: 1.5 }}*/}
+                            {/*        viewport={{ once: true }}*/}
+                            {/*        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"*/}
+                            {/*    />*/}
 
-                            </div>
+                            {/*</div>*/}
 
                         </motion.div>
 

@@ -32,7 +32,7 @@ function AdminLogin() {
 
             if (response.data === "Login Successful") {
 
-                localStorage.setItem("admin", "true")
+                localStorage.setItem("adminLoggedIn", "true")
 
                 navigate("/dashboard")
             }

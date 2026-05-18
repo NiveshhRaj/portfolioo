@@ -8,7 +8,6 @@ import CustomCursor from "./components/CustomCursor";
 import FloatingBackground from "./components/FloatingBackground";
 import Timeline from "./sections/Timeline";
 import CodingStats from "./sections/CodingStats";
-import TechOrbit from "./sections/TechOrbit";
 
 import Navbar from "./components/Navbar";
 

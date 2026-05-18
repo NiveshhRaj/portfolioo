@@ -58,6 +58,7 @@ function Dashboard() {
 
                 </Link>
 
+
                 <Link
                     to="/messages"
                     className="bg-white/5 border border-gray-800 p-10 rounded-3xl hover:border-purple-500 transition"
@@ -67,6 +68,14 @@ function Dashboard() {
 
                 </Link>
 
+                <Link
+                    to="/resume"
+                    className="bg-white/5 border border-gray-800 p-10 rounded-3xl hover:border-purple-500 transition"
+                >
+
+                    Resume
+
+                </Link>
             </div>
 
         </div>
