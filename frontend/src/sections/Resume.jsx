@@ -10,7 +10,7 @@ function Resume() {
 
         window.open(
 
-            `http://localhost:8081/uploads/resume/${response.data.fileName}`
+            `${import.meta.env.VITE_API_URL}/uploads/resume/${response.data.fileName}`
 
         )
     }
