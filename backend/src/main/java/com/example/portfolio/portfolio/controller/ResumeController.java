@@ -1,52 +1,61 @@
 package com.example.portfolio.portfolio.controller;
 
+import com.cloudinary.Cloudinary;
+
+import com.cloudinary.utils.ObjectUtils;
+
 import com.example.portfolio.portfolio.entity.Resume;
+
 import com.example.portfolio.portfolio.repository.ResumeRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
+
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
-import java.io.File;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/resume")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class ResumeController {
+
+    private final Cloudinary cloudinary;
+
     private final ResumeRepository resumeRepository;
 
-    @PostMapping(value = "/upload" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping("/upload")
     public String uploadResume(
-            @RequestParam("file") MultipartFile file
+
+            @RequestParam("file")
+            MultipartFile file
+
     ) {
 
         try {
 
-            String uploadDir =
-                    System.getProperty("user.dir")
-                            + "/uploads/resume/";
+            Map uploadResult =
 
-            File dir = new File(uploadDir);
+                    cloudinary.uploader().upload(
 
-            if (!dir.exists()) {
+                            file.getBytes(),
 
-                dir.mkdirs();
-            }
+                            ObjectUtils.emptyMap()
+                    );
 
-            String filePath =
-                    uploadDir + file.getOriginalFilename();
+            String url =
 
-            file.transferTo(new File(filePath));
+                    uploadResult
+                            .get("secure_url")
+                            .toString();
 
             resumeRepository.deleteAll();
 
-            Resume resume =
-                    Resume.builder()
-                            .fileName(file.getOriginalFilename())
-                            .filePath(filePath)
-                            .build();
+            Resume resume = new Resume();
+
+            resume.setResumeUrl(url);
 
             resumeRepository.save(resume);
 

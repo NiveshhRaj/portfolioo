@@ -15,14 +15,36 @@ function Projects() {
   }, []);
 
   const fetchProjects = async () => {
-    try {
-      const response = await API.get("/projects");
 
-      setProjects(response.data);
-    } catch (error) {
-      console.log(error);
+    try {
+
+      const response =
+          await API.get("/projects")
+
+      console.log(response.data)
+
+      if (
+          Array.isArray(response.data)
+      ) {
+
+        setProjects(response.data)
+
+      }
+
+      else {
+
+        setProjects([])
+      }
+
     }
-  };
+
+    catch (error) {
+
+      console.log(error)
+
+      setProjects([])
+    }
+  }
 
   return (
     <section className="min-h-screen px-8 py-32" id="projects">
@@ -45,7 +67,7 @@ function Projects() {
         {/* Grid */}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-24">
-          {projects.map((project) => (
+          {Array.isArray(projects) && projects.map((project) => (
             <motion.div
               key={project.id}
               whileHover={{

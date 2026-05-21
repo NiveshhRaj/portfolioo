@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
+
 import { motion } from "framer-motion"
+
 import API from "../services/api"
-import ThemedCard from "../components/ThemedCard"
 
 function Skills() {
 
@@ -17,88 +18,325 @@ function Skills() {
 
         try {
 
-            const response = await API.get("/skills")
+            const response =
+                await API.get("/skills")
 
-            setSkills(response.data)
+            console.log(response.data)
 
-        } catch (error) {
+            if (
+                Array.isArray(response.data)
+            ) {
+
+                setSkills(response.data)
+
+            }
+
+            else {
+
+                setSkills([])
+            }
+
+        }
+
+        catch (error) {
 
             console.log(error)
 
+            setSkills([])
         }
     }
 
     return (
 
-        <section className="min-h-screen px-8 py-32" id="skills">
+        <section
+            className="
+
+            min-h-screen
+
+            px-6
+            md:px-10
+
+            py-32
+
+            "
+            id="skills"
+        >
 
             <div className="max-w-6xl mx-auto">
 
+                {/* Heading */}
+
                 <motion.h1
-                    initial={{ opacity: 0, y: 80 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1 }}
-                    viewport={{ once: true }}
-                    className="text-6xl font-bold text-center"
+
+                    initial={{
+                        opacity: 0,
+                        y: 80
+                    }}
+
+                    whileInView={{
+                        opacity: 1,
+                        y: 0
+                    }}
+
+                    transition={{
+                        duration: 1
+                    }}
+
+                    viewport={{
+                        once: true
+                    }}
+
+                    className="
+
+                    text-5xl
+                    md:text-6xl
+
+                    font-bold
+
+                    text-center
+
+                    "
                 >
 
-                    <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+                    <span
+                        className="
+
+                        bg-gradient-to-r
+
+                        from-purple-400
+                        to-blue-500
+
+                        bg-clip-text
+
+                        text-transparent
+
+                        "
+                    >
+
                         Skills
+
                     </span>
 
                 </motion.h1>
 
-                <div className="grid md:grid-cols-2 gap-10 mt-24">
+                {/* Grid */}
 
-                    {skills.map((skill) => (
+                <div
+                    className="
+
+                    grid
+
+                    md:grid-cols-2
+
+                    gap-8
+
+                    mt-24
+
+                    "
+                >
+
+                    {skills.map((skill, index) => (
 
                         <motion.div
+
                             key={skill.id}
-                            whileHover={{ scale: 1.03 }}
-                            className="bg-white/5 border border-gray-800 p-8 rounded-3xl backdrop-blur-lg"
+
+                            initial={{
+                                opacity: 0,
+                                y: 50
+                            }}
+
+                            whileInView={{
+                                opacity: 1,
+                                y: 0
+                            }}
+
+                            transition={{
+                                duration: 0.6,
+                                delay: index * 0.1
+                            }}
+
+                            viewport={{
+                                once: true
+                            }}
+
+                            whileHover={{
+                                scale: 1.03
+                            }}
+
+                            className="
+
+                            relative
+
+                            bg-white/5
+
+                            border
+                            border-gray-800
+
+                            p-8
+
+                            rounded-3xl
+
+                            backdrop-blur-lg
+
+                            overflow-hidden
+
+                            hover:border-purple-500/40
+
+                            transition
+
+                            duration-300
+
+                            "
                         >
+
+                            {/* Glow */}
+
+                            <div
+                                className="
+
+                                absolute
+
+                                inset-0
+
+                                bg-gradient-to-r
+
+                                from-purple-500/5
+                                to-blue-500/5
+
+                                opacity-0
+
+                                hover:opacity-100
+
+                                transition
+
+                                duration-300
+
+                                "
+                            />
 
                             {/* Top */}
 
-                            <div className="flex justify-between items-center">
+                            <div
+                                className="
 
-                                <h2 className="text-2xl font-semibold">
+                                flex
+                                justify-between
+                                items-center
 
-                                    {skill.name}
+                                relative
+                                z-10
 
-                                </h2>
+                                "
+                            >
 
-                                {/*<span className="text-purple-400">*/}
+                                <div>
 
-                                {/*    {skill.percentage}%*/}
+                                    <h2
+                                        className="
 
-                                {/*</span>*/}
+                                        text-2xl
+
+                                        font-semibold
+
+                                        "
+                                    >
+
+                                        {skill.name}
+
+                                    </h2>
+
+                                    <p
+                                        className="
+
+                                        text-gray-400
+
+                                        mt-2
+
+                                        "
+                                    >
+
+                                        {skill.category}
+
+                                    </p>
+
+                                </div>
+
+                                <span
+                                    className="
+
+                                    text-lg
+
+                                    font-bold
+
+                                    text-purple-400
+
+                                    "
+                                >
+
+                                    {skill.percentage}%
+
+                                </span>
 
                             </div>
 
-                            {/* Category */}
-
-                            <p className="text-gray-400 mt-2">
-
-                                {skill.category}
-
-                            </p>
-
                             {/* Progress Bar */}
 
-                            {/*<div className="w-full h-3 bg-gray-800 rounded-full mt-6 overflow-hidden">*/}
+                            <div
+                                className="
 
-                            {/*    <motion.div*/}
-                            {/*        initial={{ width: 0 }}*/}
-                            {/*        whileInView={{*/}
-                            {/*            width: `${skill.percentage}%`*/}
-                            {/*        }}*/}
-                            {/*        transition={{ duration: 1.5 }}*/}
-                            {/*        viewport={{ once: true }}*/}
-                            {/*        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"*/}
-                            {/*    />*/}
+                                w-full
 
-                            {/*</div>*/}
+                                h-3
+
+                                bg-gray-800
+
+                                rounded-full
+
+                                mt-8
+
+                                overflow-hidden
+
+                                relative
+                                z-10
+
+                                "
+                            >
+
+                                <motion.div
+
+                                    initial={{
+                                        width: 0
+                                    }}
+
+                                    whileInView={{
+                                        width:
+                                            `${skill.percentage}%`
+                                    }}
+
+                                    transition={{
+                                        duration: 1.5
+                                    }}
+
+                                    viewport={{
+                                        once: true
+                                    }}
+
+                                    className="
+
+                                    h-full
+
+                                    bg-gradient-to-r
+
+                                    from-purple-500
+                                    to-blue-500
+
+                                    rounded-full
+
+                                    "
+                                />
+
+                            </div>
 
                         </motion.div>
 
