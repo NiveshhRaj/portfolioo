@@ -262,7 +262,7 @@ function Skills() {
 
                                 </div>
 
-                                <span
+                                {/* <span
                                     className="
 
                                     text-lg
@@ -276,7 +276,7 @@ function Skills() {
 
                                     {skill.percentage}%
 
-                                </span>
+                                </span> */}
 
                             </div>
 
