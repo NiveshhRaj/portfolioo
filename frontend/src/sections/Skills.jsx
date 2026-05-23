@@ -282,7 +282,7 @@ function Skills() {
 
                             {/* Progress Bar */}
 
-                            <div
+                            {/* <div
                                 className="
 
                                 w-full
@@ -336,7 +336,7 @@ function Skills() {
                                     "
                                 />
 
-                            </div>
+                            </div> */}
 
                         </motion.div>
 
