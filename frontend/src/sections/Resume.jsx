@@ -44,7 +44,7 @@ function Resume() {
         {/* Button */}
 
         <a
-            href="/resume.pdf"
+            href="/Resume.pdf"
             download
             className="inline-block mt-12 px-10 py-5 rounded-full bg-purple-600 hover:bg-purple-700 transition text-lg font-semibold"
         >
